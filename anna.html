@@ -1,0 +1,555 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- Include of Connection and Encryption Files starts here -->
+
+<!-- Include of Connection and Encryption Files ends here -->
+<html>
+	<head>
+		<!-- Style for the pages is included as CSS start here -->
+			<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<!-- Header include starts here -->
+		<!-- title of a page-->
+<title>Anna University - COE, Chennai</title>
+
+ 	
+ 		<link href="css/style.css" rel="stylesheet" type="text/css"> 
+ 
+		<link rel="stylesheet" type="text/css" href="css/styles.css" />
+<!-- Style for the pages is included as CSS ends here -->
+	
+<!-- MD5 for Encryption includes -->
+<script LANGUAGE="Javascript" SRC="includes/md5.js"></script>
+
+<!-- jquery for slider and menu included -->
+	
+	
+	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>-->
+	<script type="text/javascript"  src="js/jquery-1.7.1.js"></script> 
+
+	
+	
+	
+	<script type="text/javascript" src="js/jquery.slidertron-1.1.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			
+			$('#slider').slidertron({
+				viewerSelector: '.viewer',
+				indicatorSelector: '.indicator span',
+				reelSelector: '.reel',
+				slidesSelector: '.slide',
+				speed: 'slow',
+				advanceDelay: 4000
+			});
+		});
+	</script>		<!-- Header include ends here -->
+		<script>
+<!--
+
+if (self != top)
+   {
+   top.location.href = self.location;href;
+   }
+
+//-->
+</script>
+		<!--  Validation for fields starts here -->
+		<script>
+		window.onerror=function(){ return false;}
+		function classChange(styleChange,item) 
+		{
+			item.className = styleChange;
+		}
+		
+		function validateForm(strSalt,strit)
+		{
+			var pass=document.getElementById("password").value;
+			var ck_password =/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$/
+			var errors = [];
+			if(document.getElementById("username").value =="")
+			{
+				alert("Please enter the Institution Code");
+				document.getElementById("username").focus();
+				return false;
+			}
+			else if(document.getElementById("password").value=="")
+			{
+				alert("Please enter the password");
+				document.getElementById("password").focus();
+				return false;
+			}
+			else if (pass!="" && pass.length<8)
+			{
+				alert ("Please enter the Password more than or equal to 8 characters");
+				document.getElementById("password").value="";
+				document.getElementById("password").focus();
+				return false;
+			} 
+			else if(document.getElementById("security_code").value=="")
+			{
+				alert("Please answer the question");
+				document.getElementById("security_code").focus();
+				return false;
+			}
+			else if (!ck_password.test(pass)) 
+			{
+				errors[errors.length] = "Minimum one lowercase characters (a–z)";
+				errors[errors.length] = "Minimum one uppercase characters (A–Z)";
+				errors[errors.length] = "Minimum one numeric characters (0–9)";
+				errors[errors.length] = "Minimum one special Characters and Valid special characters are: @#$%^&+=";
+				if (errors.length > 0)
+				{
+					reportErrors(errors);
+					document.getElementById("password").value="";
+					document.getElementById("password").focus();
+					return false;
+				}
+			return false;
+			}
+			else
+			{
+				var strEncPwd=new String(encryptPwd1(document.getElementById("password").value, strSalt,strit));
+				document.getElementById("password").value=strEncPwd;
+				document.login.submit();
+			}
+			return true;
+		}
+		
+		function reportErrors(errors)
+		{
+			var msg = "Please Enter Valide Password...\n";
+			for (var i = 0; i<errors.length; i++) 
+			{
+				var numError = i + 1;
+				msg += "\n" + numError + ". " + errors[i];
+			}
+			alert(msg);
+			return true;
+		}
+		
+		function encryptPwd1(strPwd, strSalt,strit)
+		{
+			var strNewSalt=new String(strSalt);
+			if (strPwd=="" || strSalt=="")
+			{
+				return null;
+			}
+			var strEncPwd;
+			var strPwdHash = MD5(strPwd);
+			var strMerged = strNewSalt+strPwdHash;
+			var strMerged1 = MD5(strMerged);
+			return strMerged1;
+		}
+		
+		function onlynumeric(evt,item)
+		{
+			var chrcode = (evt.which) ? evt.which : evt.keyCode
+			if (chrcode > 31 && (chrcode < 48 || chrcode > 57))
+			{	
+				return false;	
+			}
+			return true;
+		}
+		function detectCapsLock(e)
+		{
+			var keyPressed = (navigator.appName == "Microsoft Internet Explorer") ? e.keyCode : e.charCode;
+			if(keyPressed!=13 && keyPressed!=10 && keyPressed!=127)
+			{
+				if((!e.shiftKey && (keyPressed >= 65 && keyPressed <= 90)) || ((keyPressed >= 97 && keyPressed <= 122) && e.shiftKey))
+				{
+					document.getElementById("capsDetect").innerHTML = "CAPS LOCK is ON";
+					document.getElementById("capsDetect").style.color = "navy";
+				}
+				else
+				{
+					document.getElementById("capsDetect").innerHTML = "";
+				}
+			}
+			if(keyPressed==13)
+			{
+				alert("Enter Pressed");
+			}
+		}
+		function alert_forpwd()
+		{
+			document.getElementById('forpwd').style.display="block";
+		}
+		
+
+
+		function numberandhypen(e) 
+					{
+						var k;
+						document.all ? k = e.keyCode : k = e.which;
+						if(k < 32 ||(k > 47 && k < 58)|| k == 45)
+						{
+							return true;
+						}
+						else 
+						{
+							return false;
+						}				
+					}
+
+		function alphaandno(e) 
+					{
+						var k;
+						document.all ? k = e.keyCode : k = e.which;
+						if(k > 32 && ((k < 65 || k > 90)&&(k < 97 || k > 122))&&(k < 48 || k > 57))
+						{
+							return false;
+						}
+						else
+						{
+							return true;
+						}				
+					}
+
+
+		function isValidDate(sText) 
+		{
+			var reDate = /(?:0[1-9]|[12][0-9]|3[01])\-(?:0[1-9]|1[0-2])\-(?:19|20\d{2})/;
+			return reDate.test(sText);
+		}
+		
+		function onccheckdob() 
+		{
+			var reg_no=document.getElementById('register_no').value;
+			reg_no=reg_no.trim();
+			if(substring(reg_no,5,2)='12')
+			{
+				document.getElementById('dob_div').style.display='none';
+			}
+			else
+			{
+				document.getElementById('dob_div').style.display='';
+			}
+		}
+					
+		function stu_result()
+		{
+			var reg_no=document.getElementById('register_no').value;
+			var security_code_student=document.getElementById('security_code_student').value;
+			var dob_get=document.getElementById('dob').value;
+			
+			if(reg_no.trim() == "")
+			{
+				alert("Please enter register number");
+				return false;
+			}
+			
+			if(!/^[0-9a-zA-Z]*$/.test(reg_no.trim()))
+			{
+				alert("Please enter valid register number");
+				return false;		
+			}
+			if(!isValidDate(dob_get))
+			{
+				alert("Please enter valid Date of birth");
+				return false;	
+			}
+			
+			if(security_code_student.trim() == "")
+			{
+				alert("Please enter Security code");
+				return false;
+			}
+ 		}
+		
+		
+		</script>
+		<!-- Validation for Fields ends here -->
+	</head>
+	<body  onLoad="document.login.username.focus();">
+	
+	<div id="wrapper">
+		<div id="header">
+			<!-- Header Logo and Title Include starts here -->
+			<!-- Header Logo and Title starts Here-->
+	<div id="header">
+		<div id="slogan">
+			<img src="images/aulo.jpg" width="85" height="85" style="margin-right:30px; margin-left:30px;">
+			<img src="images/topics.png">		
+		</div>
+	</div>
+<!-- Header Logo and Title ends Here-->			<!-- Header Logo and Title Include ends here -->
+		</div>
+		
+		<!-- Menu border include starts here -->
+		<div id="menufront"> </div>
+		<!-- Menu border include ends here -->
+		
+		<!-- image slider starts here -->
+		
+		
+			
+				
+			<div id="slider">
+		 
+				<div class="viewer">
+					<div class="reel">
+						<div class="slide">
+							<img src="images/slide01.jpg" height="180px" width="870px" alt="" />				</div>
+						<div class="slide">
+							<img src="images/slide02.jpg" height="180px" width="870px" alt="" />				</div>
+						<div class="slide">
+							<img src="images/slide03.jpg" height="180px" width="870px" alt="" />				</div>
+						<div class="slide">
+							<img src="images/slide04.jpg" height="180px" width="870px" alt="" />				</div>
+						<div class="slide">
+							<img src="images/slide05.jpg" height="180px" width="870px" alt="" />				</div>
+					</div>
+				</div>
+				<div class="indicator">
+					<span>1</span>
+					<span>2</span>
+					<span>3</span>
+					<span>4</span>
+					<span>5</span>		
+				</div>
+			</div>
+			<!-- image slider ends here -->
+			
+				<div id="page">
+			
+			<div id="content">
+			<div class="box" id="content-box1" style="float:left">
+			<form method="POST" name="login" id="login" action="index_support.php" autocomplete="off">
+				<input type="hidden" 
+				name="salt"
+				id="salt" 
+				value="oD59FSK7i3EFd5u1kzcp">
+				<input type="hidden" 
+				name="pagetoken" 
+				id="pagetoken"
+				value="1z4mKAJ8BjOUoT7z6tKB">
+				<div class="members_login"  style="height:220px">
+					<h1>Institution login</h1>
+					<div class="login_row">
+						<label class="login">Institution Code: </label>
+						<input 
+						name="username"
+						id="username" 
+						type="text" maxlength="8" 
+						class="login_input"
+						style="text-transform:uppercase" 
+						onKeyPress="return alphaandno(event);"/>
+					</div>
+					<div class="login_row">
+						<label class="login">Password:</label>
+						<input 
+						name="password"
+						id="password" 
+						type="password" 
+						class="login_input"
+						onKeyPress="return detectCapsLock(event)"  />
+						<label id="capsDetect"></label>
+					</div>
+					<div class="login_row">
+						<label class="login">
+													
+						Enter the Captcha	<br>	
+						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAAUCAIAAAC/CtwvAAAA/0lEQVRYhd1X0Q7EIAgDc///y97DEs5oqXVzucQ+OZQOBHo3r7WamZm5O1zvgsK5JYb9of8dhey5O1wreOO8yNlX6XJrjZkl0LYK8VWYdSM8dgFXidxHy9XGOvrySw0e2AvQV9zFKWUDNuYDT7q7mI+hIsObmjIHD5slBaMuxSPPlrcWzIozB9KUpjetsO/1EnGgiH+6525q24VRnYG70Jc03ogltbxQIJ2oLTwaiJg96BXa0GnGEooluQZ7ZxxDXHofUX/4lhtzMRHxsT0imky7RPCsbuDXWefJw9PfpSd46X/g0VXK7mDVnmHX2Ey/D46uko4n31Gr/DfOH1ilL2cq200XAq7yAAAAAElFTkSuQmCC">
+							
+						</label>
+						<input 
+						name="security_code" 
+						id="security_code" 
+						type="text" 
+						class="login_input" />
+					</div>
+					<div class="login_row"><span style="color:#FFFFFF; float:left; margin-left:40px; margin-top:2px; cursor:pointer;" onclick="alert_forpwd();" ><u>Forgot Password</u></span>
+						<input type="submit"
+						name="gos"
+						id="gos"
+						value="Login"
+						class="buttonSubmit"
+						onMouseOver="classChange('buttonSubmitRoll',this)"
+						onMouseOut="classChange('buttonSubmit',this)"
+						onClick="return validateForm('oD59FSK7i3EFd5u1kzcp','99');">
+					</div>
+					
+				</div>
+				
+			</form>
+			
+			</div>
+			<div class="box" id="content-box1" style="float:left">
+						<form method="POST" name="login_stu" id="login_stu" action="students_corner.php" onsubmit="return stu_result();" autocomplete="off">
+						
+			
+				<input type="hidden" 
+				name="1z4mKAJ8BjOUoT7z6tKB" 
+				id="1z4mKAJ8BjOUoT7z6tKB"
+				value="1z4mKAJ8BjOUoT7z6tKB">
+			
+				<div class="members_login" style="height:220px">
+					<h1>Student login</h1>
+					<div class="login_row">
+						<label class="login">Register Number </label>
+						<input 
+						name="register_no"
+						id="register_no" 
+						type="text" maxlength="15" size='12'
+						class="login_input" 
+						onKeyPress="return alphaandno(event);"/>
+					</div>
+					<div class="login_row" id='dob_div' >
+						<label class="login">Date of Birth<br />[DD-MM-YYYY]</label>
+						<input 
+						name="dob"
+						id="dob" 
+						type="text" maxlength="10" size='10'
+						class="login_input" 
+						onKeyPress="return numberandhypen(event);"/>
+					</div>
+					<div class="login_row">
+						<label class="login">
+														Enter the Captcha<br>	
+							<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAAUCAIAAAC/CtwvAAABDUlEQVRYheVX0RICIQiEm/7/l+2hiQhYwLybJtsnQ1gQEC8eYxARETGzrDWQHGGFZ8WXrOcofgIHETGz/EZrhI7O1baGx1bpsa2FWoKCKEmatloHdS/aEtxCKepp436M4QMViSHxhDa777nzMTSreiRBU5qVPIt5VRNDRN6nskd6zQ3msuVMHGFYwpPbehi/kqYczBxXyWcLpa3jZsqWn0C2pa8Nh3g8HqhKZLjVn2mduiVjMy+DbTwEPcdyUmn6Mm6UgpX3ivpH0pf1rPvj16LTd+TRPVIfszk2k8BMWq2mOyXxsuF4CN6l0uZb33WIp/jG2wDxXfr4PizqnMK5aZU6/5GueENWOP9r4t0BF6fkWGQ7j3AAAAAASUVORK5CYII=">
+						</label>
+						<input 
+						name="security_code_student" 
+						id="security_code_student" 
+						type="text" 
+						class="login_input" />
+					</div>
+					<div class="login_row">
+						<input type="submit"
+						name="gos"
+						id="gos"
+						value="Login"
+						class="buttonSubmit"
+						onMouseOver="classChange('buttonSubmitRoll',this)"
+						onMouseOut="classChange('buttonSubmit',this)" />
+					</div>
+ 				</div>
+			</form>
+			</div>
+ 						</div> 
+		 <div style="border:2px solid black;border-radius:7px; float:left ; width:600px;">
+			<table width="100%" cellpadding="0" cellspacing="0" >
+ 				 <div style="background-color:#37B3B3; color:#FFFFFF ;border-radius: 3px; text-indent:3px;">Student's Corner</div>
+ 				<tr>
+					<td align="center" style="background-color:#CCFFFF"><font style=" font-size:14px; font-weight:bold;">MobileApp for Android Devices<br /> (Ver 3.0 - June 2014)</font><br /></td>
+					<td style="border-left:1px solid black; background-color:#CCFFFF;" align="center"><font style=" font-size:14px; font-weight:bold;">WebApp for all Mobile Devices <br /> (Ver 1.0 – Jan 2015)</font><br /></td>
+				</tr>
+				<tr>
+					<td align="center">
+						 <font style=" font-size:12px; font-weight:bold;"><a href="http://coe1.annauniv.edu/aucoe/downloads/file.php">Download to the Computer</a><br />and copy to the Mobile device<br /> (or) <br /> Scan this QR Code<br /></font> 
+					  		<img src="images/AU-QRCode.png" height="90px;" width="90px;" align="middle"><br /><br />
+					</td>
+					<td style="border-left:1px solid black" align="center">
+					  <font style=" font-size:12px; font-weight:bold;">Visit : <a href="http://sdpdr.nic.in/annauniv">sdpdr.nic.in/annauniv </a><br />(from  FireFox, Chrome, IE, Safari)<br /> (or) <br /> Scan this QR Code<br /></font> 
+					  <img src="images/app_ver1.0/AU-QRCode.jpg" height="90px;" width="90px;" align="middle"><br /><br /> </td>
+  				 
+					
+					
+				</tr>
+				
+ 			</table>
+		</div>
+ 		<!-- Login page content starts here -->
+		<div id="sidebar">
+ 
+				<div style="border:2px solid black;padding-bottom:3px; height:475px;border-radius:7px;"  onmouseover="document.getElementById('scrmsg').stop()" onmouseout="document.getElementById('scrmsg').start()">
+					<div style="background-color:#37B3B3; color:#FFFFFF ;border-radius: 3px;"> Attention! All Institutions &nbsp;&nbsp;<span style="width:70px;  position:absolute;float:right;  color:#FFFFFF"><a href="exp_msg_home.php"  style="color:white">[ View All ]</a></span></div>
+					  
+											<marquee direction="up" scrolldelay="150"  id='scrmsg' style=" height:90%;" behavior="scroll"><div> <p style='color:#0000FF;font-weight:bold;;font-size:20px;'><font color='#FF0000' size='+1' >*</font>Examinations Schedule for Theory and Practical for Apr/May 2017 Semester Examinations - <a href= 'http://coe1.annauniv.edu/aucoe/pdf/2017_apr_may/AM2017_PRACT_SCHEDULE.pdf'>Click Here</a><img src='images/new_blink.gif' /></p><br><p style='color:#0000FF;font-weight:bold;;font-size:17px;'><font color='#FF0000' size='+1' >*</font>Distance Education:- Candidates are requested to approach the respective Study Centre for Collecting Hall Ticket for February / March 2017 Examinations.Students who have already made a request for  Change of Exam Centre may contact 044-22357300.<img src='images/new_blink.gif' /></p><br><p style='color:#A52A2A;font-weight:bold;;font-size:17px;'><font color='#FF0000' size='+1' >*</font>Distance Education:-The Hall Ticket will be generated only for registered students.The unregistered students without Hallticket issued by COE office will not be permitted to appear for End semester theory Exams,practicals and projectwork.<img src='images/new_blink.gif' /></p><br><p style='color:#0000FF;font-weight:bold;;font-size:20px;'><font color='#FF0000' size='+1' >*</font>Affiliated Institutions :- Internal Assessment Schedule for April / May 2017 Examinations <a target='_blank' href='http://coe1.annauniv.edu/aucoe/pdf/2017_apr_may/Assessment_Schedule.pdf'>Click Here</a><img src='images/new_blink.gif' /></p><br><p style='color:Green;font-weight:bold;;font-size:20px;'><font color='#FF0000' size='+1' >*</font>Distance Education - Notification for Payment of Examination Fees (February 2017) - Reg.- <a href='http://coe1.annauniv.edu/aucoe/pdf/distance/tt_feb_2017/feb2017.pdf'>Click Here</a><img src='images/new_blink.gif' /></p><br><p style='color:blue;font-weight:bold;;font-size:20px;'><font color='#FF0000' size='+1' >*</font>Distance Education - Important Instruction about the Examination Centre for FEB / MAR- 2017 Examinations - for the Candidates from Outside Tamil Nadu - Reg.- <a href='http://coe1.annauniv.edu/aucoe/pdf/distance/tt_feb_2017/feb2017_change_of_exam_centre.pdf'>Click Here</a><img src='images/new_blink.gif' /></p><br><p style='color:Green;font-weight:bold;;font-size:20px;'><font color='#FF0000' size='+1' >*</font>Distance Education - Time Table for February / March 2017 University Examinations.- <a href='http://coe1.annauniv.edu/aucoe/pdf/distance//tt_feb_2017/distance.html'>Click Here</a><img src='images/new_blink.gif' /></p><br> </div>
+						</marquee>
+									</div>
+		</div>
+ 		 
+ 		<!-- Login page content ends here -->
+   		 
+ 	</div>
+	</div>
+		
+	<!-- footer Include starts here -->
+		 
+<!-- Footer content starts here -->
+	<div id="footer">
+		
+		<table width="99.8%">
+			<tr>
+			  <td width="12%"  align="left">
+						<b>
+								<a href="disclamer.php" style="text-decoration:none;color:#333333;">Disclaimer</a>
+						</b>
+			  </td>
+			  <td width="58%" align="center">
+						<b>
+								Designed and developed by: National Informatics Centre, Chennai.<br>
+								Optimized for 1024 x 768 monitor resolution. Best Viewed with IE8+, Firefox 10+, Chrome 15+
+				</b>
+			  </td>
+			  <td width="30%" align="right">
+						<b>
+								Content owned & maintained by <br /> Office of the COE, Anna University, Chennai. 	
+						</b> 				  
+			  </td>
+			</tr>
+	  </table>
+		
+	</div>
+<!-- Footer content ends here -->
+	<!-- footer Include ends here -->
+	
+	<div id="forpwd" style=" position:absolute; left:35%; top:35%;display:none; color:#FFFFFF; background-color:#37B3B3;z-index:2000; border-radius:3px; border:3px; height:150px; width:400px;">
+		<div  style="background-color:#217A7A; height:25px;  border-radius:3px; word-spacing:3px;"><b>&nbsp;&nbsp;Reset Password</b>
+		</div>
+		<div style="height:70px; padding:10px 10px 10px 10px; word-spacing:1px;">
+			<p>To reset the password, please send a request mail from your official email  id (aucoe[Institution Code]@gmail.com) to<span style="margin-left:5px;">coeannauniv</span><span  style="margin-left:5px;">@</span><span  style="margin-left:5px;">gmail</span><span  style="margin-left:5px;">.</span><span  style="margin-left:5px;">com</span></p>
+		</div>
+		<hr />
+		<input type="button" style="float:right; margin:5px 5px 5px 5px;padding-left:15px; padding-right:15px; " value="OK" onclick="document.getElementById('forpwd').style.display='none';" />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 </div>
+	
+	</body>
+	<script>
+	$(
+		function() 
+		{
+			$(window).resize
+			(
+				function() 
+				{	
+					if($('#page').height()+$('#page').offset().top+80 < $(window).height())
+					$('#page').height($(window).height() - ($('#page').offset().top+80));
+					
+					var div= document.getElementById('page'); // need real DOM Node, not jQuery wrapper
+					var hasVerticalScrollbar= div.scrollHeight>div.clientHeight;	
+					
+					if(!hasVerticalScrollbar)
+					{
+					
+						$('#page').height($(window).height() - ($('#page').offset().top+80));
+					}
+					var hasVerticalScrollbar= div.scrollHeight>div.clientHeight;
+					if(hasVerticalScrollbar)
+					{	
+						document.getElementById("page").style.height='auto';
+					}	
+					else
+					{
+						$('#page').height($(window).height() - ($('#page').offset().top+80));
+					
+					}	
+				}
+			);
+			$('#page').resize
+			(
+				function() 
+				{
+				
+					$('#page').height($(window).height() - ($('#page').offset().top+80));
+				}
+			);	
+		$(window).resize();
+		$('#page').resize();
+		
+		}
+	);		
+	</script>
+</html>
